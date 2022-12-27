@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .container{
+                display: grid;
+                grid-template-columns: 1fr 5fr;
+                gap: 10px;
+                margin-top: 20px;
+            }
+            .container > div{
+                background-color: #f0f0f0;
+                border: none;
+                border-radius: 15px;
+
+            }
+            .sides > div{
+                display: grid;
+                flex-direction: column;
+                background: lightskyblue;
+                border-radius: 15px;
+                margin: 5px;
+                padding: 5px;
+                border: none;
+                place-items: center;
+            }
+            .input-text{
+                font-size: 25px;
+            }
+            .inputdate{
+                font-size: 25px;
+            }
+            .add-button{
+                font-size: 25px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <input class="input-text" id="inputtext" type="text" placeholder="Enter">
+        <input class="inputdate" id="inputdate" type="date">
+        <button class="add-button" id="addbutton" onclick="createlist()">ADD</button>
+        <div class="container" id="container">
+            <div class="sides" id="leftside">
+                
+            </div>
+            <div class="sides" id="rightside">
+                
+            </div>
+        </div>
+        <script>
+            let pcparts = [];
+
+            function addparts(){
+                let textobjs = document.getElementById('inputtext');
+                let dateobjs = document.getElementById('inputdate');
+                let textvalue = textobjs.value;
+                let datevalue = dateobjs.value;
+                pcparts.push({
+                    part: textvalue,
+                    datepurchase: datevalue
+                });
+                document.getElementById('inputtext').value = '';
+            };
+
+            function createlist(){
+                addparts();
+                document.getElementById('leftside').innerHTML = '';
+                document.getElementById('rightside').innerHTML = '';
+
+                pcparts.forEach(function(getpart){
+
+                    const newdivtext = document.createElement('div');
+                    newdivtext.innerHTML = getpart.part;
+                    const textpart = document.getElementById('rightside');
+                    textpart.appendChild(newdivtext);
+
+                    const newdivdate = document.createElement('div');
+                    newdivdate.innerHTML = getpart.datepurchase;
+                    const datepart = document.getElementById('leftside');
+                    datepart.appendChild(newdivdate);
+                }); 
+            }
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .container{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                background: #f0f0f0;
+                padding: 15px;
+                border-radius: 10px;
+            }
+            .container > div{
+                border-radius: 7px;
+                background-color: green;
+                padding: 15px;
+                border: none;
+                font-size: 20px;
+                color: white;
+                margin-top: 7px;
+                font-weight: 700;
+                font-family: Arial, Helvetica, sans-serif;
+                box-shadow: 0 0 5px lightslategray;
+                display: grid;
+                place-items: center;
+                margin: 0;
+            }
+            .container > div:hover{
+                transition: box-shadow .25s, color .25s;
+                box-shadow: 2px 2px 5px lightslategray;
+                background: lightskyblue;
+                color: white;
+                cursor: pointer;
+                
+            }
+            .textinput{
+                padding: 10px;
+                padding-left: 20px;
+                font-size: 20px;
+                border-radius: 20px;
+                border: none;
+                box-shadow: 0 0 3px lightslategray;
+                margin: 10px;
+            }
+            .textinput:focus{
+                outline: none;
+                box-shadow: 0 0 3px lightslategray;
+                background: lightseagreen;
+                color: white;
+            }
+
+            .add-button{
+                font-size: 20px;
+                background-color: white;
+                border: none;
+                border-radius: 20px;
+                padding: 10px 20px 10px 20px;
+                box-shadow: 0 0 3px lightslategray;
+
+            }
+            .add-button:hover{
+                transition: box-shadow .25s, color .25s;
+                box-shadow: 2px 2px 5px lightslategray;
+                background: lightskyblue;
+                color: white;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <button class="add-button" id="add-button" onclick="createlist()">ADD</button>
+        <button class="add-button" id="add-button" onclick="withrefresh()">V2</button>
+        <input class="textinput" id="textinput" type="text" placeholder="enter">
+        <div class="container" id="container">
+
+        </div>
+
+        <script>
+            let pcparts = [];
+             //THIS IS FOR ADDING NEW DIV WITHOUT REFRESHING THE ELEMENT
+            function createlist(){
+                const inputtext = document.getElementById('textinput');
+                let valuetext = inputtext.value;
+                pcparts.push(valuetext);
+                const containdiv = document.getElementById('container');
+                let newdiv = document.createElement('div');
+                newdiv.innerText = valuetext;
+                containdiv.appendChild(newdiv);
+                inputtext.value = "";
+            };
+            //WITH REFRESH ELEMENT OF DIV
+             function withrefresh(){
+                const inputtext = document.getElementById('textinput');
+                let valuetext = inputtext.value;
+                pcparts.push(valuetext);
+                document.getElementById('container').innerHTML='';
+
+                pcparts.forEach(function (currentpart){
+                    const newdiv = document.getElementById('container');
+                    let creatediv = document.createElement('div')
+                    creatediv.innerText = currentpart;
+                    newdiv.appendChild(creatediv);
+
+                });
+
+             };
+
+        </script>
+    </body>
+</html>

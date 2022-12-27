@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body>button{
+                padding: 15px;
+                margin: 15px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <button onclick="show1()">FUNC1</button>
+        <button onclick="show2()">FUNC2</button>
+        <button>FUNC3</button>
+
+        <script>
+            function return1(r1){
+                let contain = r1 + 1;
+                return contain;
+            }
+
+            function return2(r1,r2){
+                let mult = r1*r2;
+                let add = r1+r2;
+                return{
+                    'multiply' : mult,
+                    'addition' : add
+                };
+            }
+
+            function show1(){
+                let val1 = 5;
+                let show = return1(val1);
+                alert(show);
+            }
+
+            function show2(){
+                let mul = 2;
+                let ad = 3;
+                let operate = return2(mul,ad)
+                alert('ADD ' + operate.addition + ' MULTI ' + operate.multiply)
+            }
+        </script>
+    </body>
+</html>

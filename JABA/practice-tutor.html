@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body{
+                margin: 0;
+                height: 3000px;
+                padding-top: 100px;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            .head-container{
+                position: fixed;
+                top: 0;
+                left: 0;
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                background: none;
+                border-radius: 10px;
+                background: lightskyblue;
+                min-width: fit-content;
+                padding-bottom: 15px;
+
+            }
+            .head-container>div{
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                flex-shrink: 0;  
+                padding: 5px;
+            }
+            .head-bricked-div>input{
+                height: 40px;
+                font-size: 20px;
+                padding: 1px;
+                text-align: center;
+                border: solid 1px transparent;
+                border-radius: 7px;
+            }
+            .main-section{
+                display: grid;
+                grid-template-columns: 1fr 3fr;
+                gap: 5px;
+                margin-bottom: 10px;
+            }
+            .total-div{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                
+            }
+            .total-div > input{
+                height: 40px;
+                border: solid 1px transparent;
+                border-radius: 5px;
+                margin-right: 5px;
+                width: 300px;
+                text-align: center;
+                font-size: 25px;
+            }
+            .total-div > button{
+                height: 50px;
+                width: 140px;
+                cursor: pointer;
+                border: none;
+                border-radius: 5px;
+                background: green;
+                color: white;
+                font-size: 20px;
+            }
+            .main-section>div{
+                background-color: lightskyblue;
+                border-radius: 10px;
+                padding: 5px;
+                max-height: fit-content;
+                min-height: 50px;
+            }
+            .product-select{
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                justify-content: space-between;
+                padding: 7px;
+                align-items: center;
+                font-weight: 700;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            .product-select>button{
+                height: 50px;
+                width: 110px;
+                padding: 5px 15px 5px 15px;
+                border: solid 1px transparent;
+                cursor: pointer;
+            }
+            .inner-div{
+                margin: 10px;
+                background: white;
+                border: solid 1px transparent;
+                border-radius: 10px;
+                display: grid;
+                grid-template-columns: 2fr 6fr 1fr 3fr 1fr;
+                padding: 5px;
+                place-items: center;
+                gap: 5px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="main-container">
+            <div class="head-container">
+                <div class="head-bricked-div">
+                    DATE
+                    <input type="date" id="dateload">
+                </div>
+
+                <div class="head-bricked-div">
+                    QUANTITY
+                    <input type="number" id="qtyload">
+                </div>
+
+                <div class="head-bricked-div">
+                    PRODUCT
+                    <input type="text" id="productload">
+                </div>
+
+                <div class="head-bricked-div">
+                    AMOUNT
+                    <input type="number" id="amountload">
+                </div>
+            </div>
+
+            <div class="main-section">
+                <div class="total-div">PRODUCT
+                    <button id="add-button" onclick="add()">ADD</button>
+                </div>
+                <div class="total-div">TOTAL
+                    <input type="number" id="totalinput">
+                </div>
+            </div>
+            <div class="main-section">
+                <div>
+                    <div class="product-select">
+                        <button id="apple-button" onclick="apple()">APPLE</button>
+                        PHP
+                        <span id="appleprice">10.00</span>
+                    </div>
+                    <div class="product-select">
+                        <button id="banana-button" onclick="banana()">BANANA</button>
+                        PHP
+                        <span id="bananaprice">15.00</span>
+                    </div>
+                    <div class="product-select">
+                        <button id="orange-button" onclick="orange()">ORANGE</button>
+                        PHP
+                        <span id="orangeprice">20.00</span>
+                    </div>
+                    <div class="product-select">
+                        <button id="grape-button" onclick="grape()">GRAPE</button>
+                        PHP
+                        <span id="grapeprice">50.00</span>
+                    </div>
+                </div>
+                <div class="outer-div">
+                    <div class="inner-div">
+                        <div>DATE</div>
+                        <div>PRODUCT</div>
+                        <div>QTY</div>
+                        <div>AMOUNT</div>
+                    </div>
+                    <div class="inner-div" id="itemspace">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let SKUORDER = [];
+
+            function apple(){
+                let fruit_price = Number(document.getElementById('appleprice').innerText);
+                let qty_order = Number(document.getElementById('qtyload').value)+1;
+                let fruit = document.getElementById('apple-button').innerText;
+                document.getElementById('qtyload').value = qty_order;
+                document.getElementById('productload').value = fruit;
+                document.getElementById('amountload').value = fruit_price*qty_order;
+            };
+
+            function banana(){
+                let fruit_price = Number(document.getElementById('bananaprice').innerText);
+                let qty_order = Number(document.getElementById('qtyload').value)+1;
+                let fruit = document.getElementById('banana-button').innerText;
+                document.getElementById('qtyload').value = qty_order;
+                document.getElementById('productload').value = fruit;
+                document.getElementById('amountload').value = fruit_price*qty_order;
+            };
+
+            function orange(){
+                let fruit_price = Number(document.getElementById('orangeprice').innerText);
+                let qty_order = Number(document.getElementById('qtyload').value)+1;
+                let fruit = document.getElementById('orange-button').innerText;
+                document.getElementById('qtyload').value = qty_order;
+                document.getElementById('productload').value = fruit;
+                document.getElementById('amountload').value = fruit_price*qty_order;
+            };
+
+            function grape(){
+                let fruit_price = Number(document.getElementById('grapeprice').innerText);
+                let qty_order = Number(document.getElementById('qtyload').value)+1;
+                let fruit = document.getElementById('grape-button').innerText;
+                document.getElementById('qtyload').value = qty_order;
+                document.getElementById('productload').value = fruit;
+                document.getElementById('amountload').value = fruit_price*qty_order;
+            };
+
+
+
+
+            function add(){
+                let headdate = document.getElementById('dateload').value;
+                let headqty = Number(document.getElementById('qtyload').value);
+                let headproduct = document.getElementById('productload').value;
+                let headamount = Number(document.getElementById('amountload').value);
+
+                const uniqid = new Date().getTime(); // catching milisec time for id unique
+
+                SKUORDER.push({
+                    pdate: headdate,
+                    pqty: headqty,
+                    product: headproduct,
+                    pamount: headamount,
+                    id: uniqid
+                }) 
+
+                let total;
+
+                total = Number(document.getElementById('amountload').value) + Number(document.getElementById('totalinput').value);
+
+                document.getElementById('totalinput').value = total;
+
+                document.getElementById('itemspace').innerHTML='';
+                productload.value = "";
+                document.getElementById('qtyload').value = 0;
+                document.getElementById('amountload').value = 0;
+                
+                refresh();
+            }
+
+            function refresh(){
+                SKUORDER.forEach(function(Entry,index){
+                    let datediv = document.createElement('div');
+                    let proddiv = document.createElement('div');
+                    let qtydiv = document.createElement('div');
+                    let amountdiv = document.createElement('div');
+
+                    let targetdiv = document.getElementById('itemspace');
+
+                    datediv.innerText = Entry.pdate;
+                    targetdiv.appendChild(datediv);
+
+                    proddiv.innerText = Entry.product;
+                    targetdiv.appendChild(proddiv);
+
+                    qtydiv.innerText = Entry.pqty;
+                    targetdiv.appendChild(qtydiv);
+
+                    amountdiv.innerText = Entry.pamount;
+                    targetdiv.appendChild(amountdiv);
+
+                    //create delete button beside the last div created
+                    const deletebutton = document.createElement('button');
+                    deletebutton.innerText = 'Remove';
+                    deletebutton.style = 'border-radius: 15px; padding: 7px; border-color: red; cursor:pointer'; //css multiple line
+                    deletebutton.id = Entry.id; //calling the uniq id for each run
+                    deletebutton.onclick = deleteline; //calling function without ()
+                    targetdiv.appendChild(deletebutton);
+                    
+                })
+            }
+
+            function deleteline(event){
+                const delbtn = event.target;
+                const targetdelete = delbtn.id;
+                alert(targetdelete);
+                SKUORDER = SKUORDER.filter(function (todo){
+                    if (todo.id == targetdelete) {
+                        alert('TRUE ' + todo.id +' = ' +targetdelete);
+                        return false;
+                    }
+                    else{
+                        alert('else ' + todo.id +' = ' +targetdelete);
+                        return true;
+                    };
+                    
+                });
+
+                document.getElementById('itemspace').innerHTML='';
+                refresh()
+               
+            };
+
+
+
+            /**function deleteline1(event){
+                const delbtn = event.target;//gets the id of the element based on the target value
+                const targetdelete = delbtn.id;
+                SKUORDER.splice(Number(targetdelete),1)
+                document.getElementById('itemspace').innerHTML='';
+                refresh()
+            }**/
+        </script>
+    </body>
+</html>

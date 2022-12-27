@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body > button:nth-child(odd){
+                background: lightcoral;
+                font-size: 25px;
+            }
+            body > button:nth-child(even){
+                background: lightseagreen;
+                font-size: 25px;
+            }
+            body{
+                display: flex;
+                justify-content: space-between;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            let parts = ['cpu','ram' , 'mobo'];
+            parts.forEach( function(partlist){
+                parts.push(partlist);  
+            });
+            parts.sort();
+            parts.forEach(function(pcparts){
+                let newbutton = document.createElement('button');
+                newbutton.innerText = pcparts;
+                document.body.appendChild(newbutton);
+            })
+        </script>
+    </body>
+</html>

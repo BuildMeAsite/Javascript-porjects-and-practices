@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <script>
+            let arry = [55,66,77,88,99,100];
+
+            const removetarget = function(a,index){
+                let newARR = [...a];//created new array to store the selected array
+                newARR.splice(index,1);//index will locate which item to be deleted
+                return newARR
+            };
+
+            const newARR = removetarget(arry,0)
+        </script>
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            button{
+                padding: 10px;
+                background: lightcoral;
+                font-size: large;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <button onclick="additem()">add</button>
+        <script>
+
+            
+            const arraynumber = [1,2,3,4,5];
+            
+
+
+            function addnumber(){
+                arraynumber.sort();
+                arraynumber.forEach(function(number_increase) {
+                /*Number(number_increase);
+                let number_display = 1;
+                number_display = number_display + number_increase;*/
+                let newbutton = document.createElement('button');
+                newbutton.innerText = number_increase;
+                document.body.appendChild(newbutton);
+            });
+            };
+
+            function additem(){
+                arraynumber.sort();
+                let getlast = Number(arraynumber.slice(-1));
+                getlast = getlast+1;
+                arraynumber.push(Number(getlast));
+                addnumber();
+            };
+            
+            
+        </script>
+    </body>
+</html>

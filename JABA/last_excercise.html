@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .head{
+                padding: 15px;
+                margin: 15px;
+                border: solid 3px lightcoral;
+                border-radius: 10px;
+            }
+    
+            .head > input{
+                height: 30px;
+                font-size: 15px;
+            }
+            .addbtn,.updatebtn{
+                margin-left: 10px;
+                font-size: 20px;
+                width: 110px;
+                height: 35px;
+            }
+            .container{
+                padding: 10px;
+                border: solid 3px lightcoral;
+                margin: 15px;
+                border-radius: 15px;
+                display: grid;
+                grid-template-columns: 1fr 1fr 2fr 5fr 2fr 2fr 1fr;
+                place-items: center;
+                gap: 5px;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="head">
+            <label>Date</label>
+            <input id="dateinputs" type="date">
+            <label>Todo</label>
+            <input id="todoinputs" type="text">
+            <button class="addbtn" id="add" onclick="gettodo()">Add ToDo</button>
+            <button disabled="true" class="updatebtn" id="updates" onclick="updatearray()">Update</button>
+        </div>
+        <div id="container" class="container">
+            
+        </div>
+    </body>
+    <script>
+        /// MODEL
+        let isEditing;
+        let arrtodo = [];
+        let arrupdate = [];
+        const saveddata = JSON.parse(localStorage.getItem('todos')); // gets the saved array string.
+
+        if (Array.isArray(saveddata)) {
+            arrtodo = saveddata;
+            refresh();
+        } else {
+            arrtodo = [];
+            refresh();
+        }
+
+        function enterarray(date,todo,id){//creates the object based on the input
+            arrtodo.push({
+                'date' : date,
+                'todo' : todo,
+                'status' : 'parked',
+                'id' : id
+            })
+            saveme();
+        };
+        function changestatus(event){//updates the array object inside
+            let checktheid = event.target;
+            let checktarget = checktheid.id;
+            alert(checktarget);
+            arrtodo = arrtodo.map(function (item){
+                //alert(item.id);
+                if (checktarget == item.id+'col1') {  
+                    return {...item,status : 'completed'};  
+                } 
+                else {
+                    return {...item};
+                }
+            })
+            refresh();
+            saveme();
+        }
+        function getid(){//creates an id for array object id
+            const timeid = new Date().getTime();
+            return timeid;
+        }
+
+        function deletetodo(event){//removes the targeted object based on the target event
+            let targetbtn = event.target.id;
+            arrtodo = arrtodo.filter(function(item,index){
+                if (targetbtn == item.id+'col6') {
+                    return false
+                } else {
+                   return true 
+                }
+            });
+            refresh();
+            saveme();
+        }
+
+        function saveme(){ //saved the string as a local file
+            localStorage.setItem('todos', JSON.stringify(arrtodo));
+        }
+
+        /// VIEW
+
+        function refresh(){//creates the elements inside div
+            document.getElementById('container').innerHTML = '';
+
+            arrtodo.forEach(function(item,index){
+                let thiscontainer = document.getElementById('container');
+                let deletebtn = document.createElement('button');
+                let indexnum = document.createElement('div');
+                let datecreate = document.createElement('div');
+                let todotext = document.createElement('div');
+                let statustodo = document.createElement('div');
+                let checkthis = document.createElement('input');//change check status based on the status
+                let editthis = document.createElement('button');
+
+                deletebtn.innerText = 'Delete';
+                deletebtn.id = item.id+'col6';
+                deletebtn.onclick = deletetodo;
+
+                editthis.innerText = 'Edit';
+                editthis.id = item.id+'col7';
+                editthis.onclick = getUpdate;
+
+                
+                indexnum.innerText = index+1;
+                datecreate.innerText = item.date;
+                todotext.innerText  = item.todo;
+                statustodo.innerText = item.status;
+                
+                
+                indexnum.id = item.id+'col2';
+                datecreate.id = item.id+'col3';
+                todotext.id = item.id+'col4';
+                statustodo.id = item.id+'col5';
+
+                checkthis.type = 'checkbox';
+                checkthis.id = item.id+'col1';
+                checkthis.onchange = changestatus;
+
+                if (item.status == 'completed') {
+                    checkthis.checked = true;
+                } else {
+                    checkthis.checked = false;
+                }
+
+
+                thiscontainer.appendChild(checkthis);
+                thiscontainer.appendChild(indexnum);
+                thiscontainer.appendChild(datecreate);
+                thiscontainer.appendChild(todotext);
+                thiscontainer.appendChild(statustodo);
+                thiscontainer.appendChild(deletebtn);
+                thiscontainer.appendChild(editthis);
+            });
+        };
+
+
+        /// CONTROL
+        function gettodo(){//captures the input values
+            let dateinput = document.getElementById('dateinputs').value;
+            let todoinput = document.getElementById('todoinputs').value;
+            
+            let timeid = getid();
+            //alert(dateinput + ' ' + todoinput + ' ' + timeid);
+            enterarray(dateinput,todoinput,timeid);
+            refresh()
+
+            document.getElementById('todoinputs').value = '';
+        }
+        function getUpdate(event){
+            let updateid = event.target.id;
+            arrtodo = arrtodo.filter(function(item){
+                if (item.id+'col7'== updateid) {
+                    document.getElementById('dateinputs').value = item.date;
+                    document.getElementById('todoinputs').value = item.todo;
+                    arrupdate.push(item.id);
+                    return true;
+                } else {
+                    return true;
+                }
+            })
+            document.getElementById('add').disabled = true;
+            document.getElementById('updates').disabled = false;
+        }
+
+        function updatearray(){
+            let dateinput = document.getElementById('dateinputs').value;
+            let todoinput = document.getElementById('todoinputs').value;
+
+            arrtodo = arrtodo.map(function(item){
+                if (arrupdate[0] == item.id) {
+                    return {...item, date : dateinput, todo : todoinput}
+                    
+                } else {
+                    return {...item};
+                }
+            })
+            refresh();
+            saveme();
+            document.getElementById('todoinputs').value = ''
+            arrupdate = [];
+            document.getElementById('add').disabled = false;
+            document.getElementById('updates').disabled = true;
+        }
+    </script>
+
+</html>

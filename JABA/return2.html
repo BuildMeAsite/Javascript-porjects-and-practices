@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            div > button{
+                padding: 15px;
+                margin: 15px;
+                font-size: 20px;
+                cursor: pointer;
+                height: 100%;
+            }
+
+            div > button:hover{
+                box-shadow: 2px 2px 5px black;
+            }
+
+            div > button:nth-child(odd){
+                background-color: lightseagreen;
+                color: white;
+            }
+
+            div > button:nth-child(even){
+                background-color: lightslategray;
+                color: white;
+            }
+            body > div{
+                padding: 30px;
+                margin: 20px;
+                border: solid 2px lightblue;
+                border-radius: 15px;
+
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <button onclick="inc()">INCREASE</button>
+            <button onclick="dec()">DECREASE</button>
+
+            <button onclick="large()">LARGEST</button>
+            <button onclick="small()">SMALLEST</button>
+        </div>
+        <div>
+            <button id="apple" onclick="uppercase(event)">APPLE</button>
+            <button id="banana" onclick="uppercase(event)">BANANA</button>
+            <button id="orange" onclick="uppercase(event)">ORANGE</button>
+            <button id="lemon" onclick="uppercase(event)">LEMON</button>
+        </div>
+        <div>
+            <button id="below" onclick="checktemp(event)">BELOW FREEZING</button>
+            <button id="above" onclick="checktemp(event)">ABOVE FREEZING</button>
+        </div>
+        <div>
+            <button id="red" onclick="sortfruit(event)">REMOVE RED</button>
+            <button id="green" onclick="sortfruit(event)">REMOVE GREEN</button>
+        </div>
+
+        <script>
+
+            ///////////// 1ST DIV /////////////////////
+            let arrnum = [6,3,4,7,2,1,5];
+
+            function inc(){ //INCREMENTAL ARRANGEMENT WHERE A IS THE PRIORITY THEN B WILL BE PLACED NEXT TO A
+                arrnum.sort(function(a, b){
+                return a-b
+            });
+                alert(arrnum)
+            }
+
+            function dec(){// DECREASING ARRANGEMENT WHERE B WILL BE PLACED FIRST BEFORE A
+                arrnum.sort(function(a, b){
+                return b-a;
+            });
+                alert(arrnum)
+            }
+
+            function large(){//SORTING TO DECREASING THEN TAKE THE 1ST ITEM IN ARRAY
+               dec()
+               alert(arrnum[0]);
+            }
+
+            function small(){//SORTING TO INCREASING TO TAKE THE 1ST ITEM IN ARRAY
+               inc()
+               alert(arrnum[0]);
+            }
+
+
+            ///////////////2ND DIV///////////////////
+            let arrstr = ['apple','banana','orange','lemon'];
+
+            function uppercase(event){
+            let fruits = event.target.id; //gets the id of the button based on the event.
+
+                arrstr.forEach(function (fruit,index){
+                    if (fruit == fruits) { //then compare if the value is the same then it will splice based on the current index.
+                        arrstr.splice(index,1)
+                        let upperme = fruit.toUpperCase();//making it uppercase.
+                        arrstr.push(upperme);// adds the uppercase value to the array
+                        alert(upperme); // just to check if the value was converted into uppercase
+                        arrstr = arrstr.sort()
+                    }
+                    else{
+                        alert('else');
+                    }
+                    
+                    })
+
+            }
+
+            ////////////////3RD DIV///////////////////
+            
+            let arrtemp = [-1,5,0,7,-4,-3,9,21];
+
+            function checktemp(event){
+                let temp = event.target.id;
+
+                arrtemp = arrtemp.filter(function(temperature){
+                    if (toString(temp) == 'above') {
+                        alert('above');
+                        if (Number(temperature)> 0) {
+                            return true; // will return the value into the array if condition was met
+                        }
+                        else{
+                            return false;// will not return the value if condition was not met.
+                        }
+                    }
+                    else{
+                        alert('below');
+                        if (Number(temperature)< 1) {
+                            return true; // will return the value into the array if condition was met
+                        }
+                        else{
+                            return false;// will not return the value if condition was not met.
+                        }
+                    }
+                })
+            }
+
+            ///////////////4TH DIV ////////////////////////
+
+            let arrfruit = [{
+                'fruit' : 'apple',
+                'color' : 'rotten'
+            },{
+                'fruit' : 'apple',
+                'color' : 'red'
+            },{
+                'fruit' : 'apple',
+                'color' : 'red'
+            },{
+                'fruit' : 'apple',
+                'color' : 'green'
+            },{
+                'fruit' : 'apple',
+                'color' : 'red'
+            }
+            ,{
+                'fruit' : 'apple',
+                'color' : 'green'
+            }
+            ,{
+                'fruit' : 'apple',
+                'color' : 'rotten'
+            }
+            ,{
+                'fruit' : 'apple',
+                'color' : 'green'
+            }
+            ]
+
+            function sortfruit(event){
+                let sorting = event.target.id; // gets the id of the clicked button
+
+                arrfruit = arrfruit.filter(function(fruit){
+                    if (sorting == fruit.color) {
+                        alert(sorting + ' and ' + fruit.color) // just checking the condition if running correctly
+                        return false; // will not return the value if the same with the button id
+                    }
+                    else{
+                        alert('else '+sorting + ' and ' + fruit.color)
+                        return true; // return the value to array
+                    }
+
+                })
+            }
+
+
+
+        </script>
+    </body>
+</html>

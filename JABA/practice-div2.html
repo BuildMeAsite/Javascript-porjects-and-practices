@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body{
+                margin: 0;
+ 
+            }
+            .separate{
+                display: grid;
+                grid-template-columns: 1fr 3fr;
+                gap: 10px;
+                background: #f0f0f0;
+                padding: 15px;
+                border-radius: 10px;
+            }
+            .container{
+                display: flex;
+                gap: 5px;
+                flex-direction: column;
+            }
+            .container > div{
+                border-radius: 7px;
+                background-color: green;
+                padding: 15px;
+                border: none;
+                font-size: 20px;
+                color: white;
+                margin-top: 7px;
+                font-weight: 700;
+                font-family: Arial, Helvetica, sans-serif;
+                box-shadow: 0 0 5px lightslategray;
+                display: grid;
+                place-items: center;
+                margin: 0;
+                gap: 7px;
+            }
+            .container > div:hover{
+                transition: box-shadow .25s, color .25s;
+                box-shadow: 2px 2px 5px lightslategray;
+                background: lightskyblue;
+                color: white;
+                cursor: pointer;
+                
+            }
+            .textinput{
+                padding: 10px;
+                padding-left: 20px;
+                font-size: 20px;
+                border-radius: 20px;
+                border: none;
+                box-shadow: 0 0 3px lightslategray;
+                margin: 10px;
+                width: 100%;
+            }
+            .textinput:focus{
+                outline: none;
+                box-shadow: 0 0 3px lightslategray;
+                background: lightgrey;
+                color: white;
+            }
+
+            .add-button{
+                font-size: 20px;
+                background-color: white;
+                border: none;
+                border-radius: 20px;
+                padding: 10px 20px 10px 20px;
+                box-shadow: 0 0 3px lightslategray;
+
+            }
+            .add-button:hover{
+                transition: box-shadow .25s, color .25s;
+                box-shadow: 2px 2px 5px lightslategray;
+                background: lightskyblue;
+                color: white;
+                cursor: pointer;
+            }
+            .inputdiv{
+                display: flex;
+                justify-content: center;
+                background: lightcyan;
+                margin: 5px;
+                border: none;
+                border-radius: 15px;
+            }
+
+            .items-button{
+                padding: 7px;
+                display: flex;
+                gap: 15px;
+                
+            }
+
+        </style>
+    </head>
+    <body>
+       
+        <div class="items-button">
+        <button class="add-button" id="add-apple" onclick="item_enlist_apple()">APPLE</button>
+        <button class="add-button" id="add-orange" onclick="item_enlist_orange()">ORANGE</button>
+        <button class="add-button" id="add-button" onclick="item_enlist()">MANGGO</button>
+        <button class="add-button" id="add-button" onclick="item_enlist()">GRAPE</button>
+        <button class="add-button" id="add-clear" onclick="clean()">CLEAR</button>
+        
+        </div>
+        <div class="inputdiv">
+        <input class="textinput" id="textinput" type="text" placeholder="enter">
+        </div>
+        <div class="separate">
+            <div class="container" id="left-container">
+
+            </div>
+            <div class="container" id="right-container">
+
+            </div>
+        </div>
+   
+        <script>
+            let basket = [];
+
+            function clean(){
+                document.getElementById('right-container').innerHTML = '';
+                document.getElementById('left-container').innerHTML = '';
+                basket = [];
+            };
+            function item_enlist_apple(){
+                let item_selected = document.getElementById('add-apple');
+                let fruit = item_selected.innerText;
+                basket.push(fruit);
+                document.getElementById('right-container').innerHTML = '';
+                document.getElementById('left-container').innerHTML = '';
+                refresh_basket()
+            };
+            function item_enlist_orange(){
+                let item_selected = document.getElementById('add-orange');
+                let fruit = item_selected.innerText;
+                basket.push(fruit);
+                document.getElementById('right-container').innerHTML = '';
+                document.getElementById('left-container').innerHTML = '';
+                refresh_basket()
+            };
+
+            function refresh_basket(){
+            basket.forEach(function (selectedfruit,fruitquantity){
+                    let left_con = document.getElementById
+                    ('left-container');
+
+                    let right_con = document.getElementById('right-container');
+
+                    let itemfruit = document.createElement('div');
+                    let quantityfruit = document.createElement('div');
+                    itemfruit.innerText = selectedfruit;
+                    quantityfruit.innerText = fruitquantity+1;
+
+                    left_con.appendChild(quantityfruit);
+                    right_con.appendChild(itemfruit);
+                });
+            };
+        </script>
+    </body>
+</html>

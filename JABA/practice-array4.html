@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            button{
+                padding: 10px;
+                background: lightskyblue;
+                font-size: large;
+                color: black;
+                margin: 5px;
+            }
+            button:hover{
+                box-shadow: 1px 1px 2px grey;
+                border: green solid 2px;
+            }
+            .add-bar{
+                height: 40px;
+                width: 300px;
+                padding: 5px;
+                padding-left: 20px;
+                font-size: 15px;
+            }
+            
+            div{
+                background-color: lightseagreen;
+                color: white;
+                padding: 10px;
+                margin: 10PX;
+                border-radius: 5px;
+            }
+            .counter{
+                display: inline-block;
+            }
+        </style>
+    </head> 
+    <body>
+        <button id="addbutton" onclick="additem()">add</button>
+        <button id="showbutton" onclick="checklist()">show</button>
+        <div class="counter" id="divcounteradd">0</div>
+        <div class="counter" id="divcountermin">0</div>
+        <input id="inputadd" class="add-bar" type="text" placeholder="Add here"></input>
+        <script>
+
+            
+            const listofpcparts = [];
+
+            function checklist(){
+                listofpcparts.forEach(function (pcparts){
+                    let newdiv = document.createElement('div');
+                    newdiv.innerText = pcparts;
+                    document.body.appendChild(newdiv);
+                });
+            };
+
+
+            function additem(){
+                let inputbox = document.getElementById('inputadd');
+                let btntex = document.getElementById('showbutton');
+                let pcpartsadd = inputbox.value;
+                listofpcparts.push(pcpartsadd);
+                let newbutton = document.createElement('div');
+                newbutton.innerText = pcpartsadd;
+                document.body.appendChild(newbutton);
+                inputbox.value = ""; //clear the input box
+               // btntex.innerText = pcpartsadd;
+                let mycountadd = document.getElementById('divcounteradd');
+                let mycountmin = document.getElementById('divcountermin');
+                let counteradd = listofpcparts.length;
+                let countermin = listofpcparts.length*-1;
+                mycountadd.innerText = counteradd;
+                mycountmin.innerText = countermin;
+            };
+            
+
+        </script>
+    </body>
+</html>
